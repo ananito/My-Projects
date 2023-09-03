@@ -1,0 +1,35 @@
+{% block posts %}
+{% for post in posts %}
+<div class="card mb-3" id="posts">
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                <h5 class="card-title"><a class="link link-underline  link-underline-opacity-0" href="{% url 'profile' post.user %}">{{ post.user }}</a></h5>
+            </div>
+            {% if request.user == post.user%}
+            <div class="col d-flex justify-content-end text-center">
+                    <button type="submit" class="btn d-inline btn-sm btn-outline-primary" id="editbtn" data-id="{{ post.id }}">Edit</button>
+            </div>
+            {% endif %}
+        </div>
+        <p class="small">{{ post.date }}</p>
+        <p id="post-body">{{ post.text }} </p>
+
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                {% if user.is_authenticated %}
+                    {% if request.user in post.user_likes.all %}
+                        <btn class="text-decoration-none text-primary" id="like" data-id="{{ post.id }}"><i id="icon" class="fa-solid fa-heart" style="color: #ed333b;"></i><span class="ms-2" id="likecount">{{ post.likes }}</span></btn>
+                    {% else %}
+                        <btn class="text-decoration-none text-primary" id="like" data-id="{{ post.id }}"><i id="icon" class="fa-regular fa-heart" style="color: #ed333b;"></i><span class="ms-2" id="likecount">{{ post.likes }}</span></btn>
+                    {% endif %}
+                {% else %}
+                    <btn class="text-decoration-none text-primary"><i class="fa-regular fa-heart" style="color: #ed333b;"></i><span class="ms-2">{{ post.likes }}</span></btn>
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+</div>    
+{% endfor %}
+{% endblock %}

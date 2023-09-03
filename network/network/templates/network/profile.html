@@ -1,0 +1,78 @@
+{% extends "network/layout.html" %}
+
+
+{% block body %}
+    <div class="card mt-3 mb-3">
+        <div class="card-body" style="background-color: #f8f9fa;">
+            <div class="row">
+                <div class="col py-1">
+                    <h4 class="d-inline pe-auto">{{username}}</h4>
+
+                    {# Check if user is authenticated #}
+                    {% if user.is_authenticated %}
+                        {% if follow %}
+
+                            {% if followed == False %}
+                                <button class="btn btn-primary d-inline btn-sm" id="follow" data-follow="{{ username }}">Follow</button>
+                            {% else %} 
+                                <button class="btn btn-danger d-inline btn-sm" id="follow" data-follow="{{ username }}">Unfollow</button>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="col">
+                    <div class="d-flex justify-content-end text-center py-1">
+                        <div>
+                        <p class="mb-1 h5">{{postsCount}}</p>
+                        <p class="small text-muted mb-0">Posts</p>
+                        </div>
+                        <div class="px-3">
+                        <p class="mb-1 h5" id="followers">{{ followers }}</p>
+                        <p class="small text-muted mb-0">Followers</p>
+                        </div>
+                        <div>
+                        <p class="mb-1 h5">{{ following }}</p>
+                        <p class="small text-muted mb-0">Following</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <p class="fw-normal fs-5">Recent Posts</p>
+        </div>
+
+        {% for post in posts %}
+            <div class="card-body border-top " id="posts">
+                <div class="row">
+                    <div class="col">
+                        <h5 class="card-title"><a class="link link-underline  link-underline-opacity-0" href="{% url 'profile' post.user %}">{{ post.user }}</a></h5>
+                    </div>
+                    {% if request.user == post.user%}
+                    <div class="col d-flex justify-content-end text-center">
+                            <button type="submit" class="btn d-inline btn-sm btn-outline-primary" id="editbtn" data-id="{{ post.id }}">Edit</button>
+                    </div>
+                    {% endif %}
+                </div>
+                <p class="small">{{ post.date }}</p>
+                <p id="post-body">{{ post.text }} </p>
+        
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        {% if user.is_authenticated %}
+                            {% if request.user in post.user_likes.all %}
+                                <btn class="text-decoration-none text-primary" id="like" data-id="{{ post.id }}"><i id="icon" class="fa-solid fa-heart" style="color: #ed333b;"></i><span class="ms-2" id="likecount">{{ post.likes }}</span></btn>
+                            {% else %}
+                                <btn class="text-decoration-none text-primary" id="like" data-id="{{ post.id }}"><i id="icon" class="fa-regular fa-heart" style="color: #ed333b;"></i><span class="ms-2" id="likecount">{{ post.likes }}</span></btn>
+                            {% endif %}
+                        {% else %}
+                            <btn class="text-decoration-none text-primary"><i class="fa-regular fa-heart" style="color: #ed333b;"></i><span class="ms-2">{{ post.likes }}</span></btn>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% include 'network/pagination.html' with posts=posts %}
+{% endblock %}

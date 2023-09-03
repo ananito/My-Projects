@@ -1,0 +1,24 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+
+{% block body %}
+{% if article %}
+<ul class="nav justify-content-end">
+    <li class="nav-item">
+      <a class="nav-link active" href="{% url 'edit_entry' title %}">Edit Article</a>
+    </li>
+</ul>
+<h4>{{ title }}</h4>
+<hr>
+{{ article|safe }}
+{% else %}
+    <h1>Uh OH! :( </h1>
+    <h3>The Article {{ title }} does not exist! </h3>
+    <p>You can try searching for aritcles that may have {{title}}.</p>
+    <p>You can also create an article for {{title}}!</p>
+{% endif %}
+{% endblock %}

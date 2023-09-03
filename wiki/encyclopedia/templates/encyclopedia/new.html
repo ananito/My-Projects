@@ -1,0 +1,26 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    New Article
+{% endblock %}
+
+{% block body %}
+    <h1>Create A New Article</h1>
+    {% if message %}
+            <h3 style="color:rgb(255, 0, 0);">{{ message }}</h3>
+    {% endif %}
+    <hr class="my-12 "/>
+    <form action="{% url 'new_entry' %}" method="post">
+        <div class="form-group  col-9">
+            <input type="text" class="form-control" name="title" id="" placeholder="Title">
+        </div>
+        <div class="form-group col-9">
+            <textarea name="article" cols="30" rows="19" wrap="hard" class="form-control" placeholder="Write your article"></textarea>
+        </div>
+        <div class="form-group col">
+            <input type="submit" class="btn btn-primary" value="Submit">
+        </div>
+        {% csrf_token %} 
+    </form>
+
+{% endblock %}

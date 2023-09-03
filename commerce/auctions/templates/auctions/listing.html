@@ -1,0 +1,115 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+{{ listing.title }}
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+
+
+
+    <h3>Listing: {{ listing.title }} </h3>
+    <div class="row">
+        <div class="col-md">
+            {% if user.is_authenticated %}
+                {% if watchlist == True %}
+                    <form action="{% url 'watchlist_add' listing.id %}" method="post">
+                        {% csrf_token %}
+                        <input class="btn btn-danger mb-3" type="submit" value="Remove From Watchlist">
+                    </form>
+                {% else %}
+                <form action="{% url 'watchlist_add' listing.id %}" method="post">
+                    {% csrf_token %}
+                    <input class="btn btn-primary mb-3" type="submit" value="Watchlist">
+                </form>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="col-md">
+            {% if listing.user == user %}
+                <form action="{% url 'listing_close' listing.id %}" method="post">
+                    {% csrf_token %}
+                    <input class="btn btn-primary mb-3" type="submit" value="Close Listing">
+                </form>
+            {% endif %}    
+        </div>
+    </div>
+
+
+
+
+
+        <img src="{{ listing.image_url }}" class="image-fluid mb-3" style="max-width: 540px;">
+        <p class="text-truncate">{{ listing.description }}</p>
+        <h4><b>${{ listing.bid }}</b></h4>
+
+    {% if listing.open%}
+        {% if messages %}
+            {% for message in messages%}
+                <div>{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+            <p>{{bid_count}} Bid(s) on this Lisitng.{% if winner.user == user %} The current bid is yours! {% endif %}</p>
+        {% if user.is_authenticated %}
+            <form action="{% url 'bid' listing.id %}" method="post">
+                {% csrf_token %}
+                <div class="form-group mb-3">
+                    <input autofocus class="form-control" min="{{listing.bid}}" type="float" name="bid" placeholder="Bid">
+                </div>
+                <input class="btn btn-primary" type="submit" value="Place Bid">
+            </form>
+        {% endif %}
+    {%elif listing.open == False %}
+        <h4 class="text">Listing Close By Author. {% if winner.user == user %}You Won the Bid! {% endif %}</h4>
+    {% endif %}
+
+    <h3>Details</h3>
+    <ul>
+        <li>Listed by: <a href="{% url 'user_view' listing.user %}">{{ listing.user }}</a></li>
+        <li>Category: {{ listing.category }}</li>
+    </ul>
+
+    <div class="container-fluid my-5 py-5">
+        <div class="row d-flex justify-content-center">
+            <div class="card text-dark">
+              <div class="card-body p-4">
+                <h4 class="mb-0">Comments</h4>
+              </div>
+              {% for comment in comments %}
+                <div class="card-body p-4">
+                    <div class="d-flex flex-start">
+                        <div>
+                            <h6 class="fw-bold mb-1">{{ comment.user }}</h6>
+                            <div class="d-flex align-items-center mb-3">
+                                <p class="mb-0">{{ comment.date }}</p>
+                            </div>
+                            <p class="mb-0">{{ comment.comment }}</p>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-0">
+                {% endfor %}
+                
+            </div>
+            <div class="col  p-4">
+                <form action="{% url 'listing_view' listing.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group mb-3">
+                        {{ commentForm }}
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="Submit">
+        
+                </form>
+            </div>
+          
+        </div>
+        
+      </div>
+
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,143 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, "Times New Roman", Times, serif, sans-serif;
+}
+
+nav {
+  font-weight: 400;
+  margin-bottom: 2px;
+}
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+nav li {
+  font-size: 15px;
+  list-style: none;
+  margin-left: 30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 0.5cm;
+}
+nav li a {
+  text-decoration: none;
+  color: black;
+  display: inline-block;
+}
+nav li a:hover {
+  text-decoration: underline;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+}
+@media screen and (min-width: 900px) {
+  .logo img {
+    margin-top: 2%;
+    width: 25%;
+    height: auto;
+  }
+}
+@media screen and (max-width: 899px) {
+  .logo img {
+    margin-top: 2%;
+    width: 35%;
+    height: auto;
+  }
+}
+@media screen and (max-width: 499px) {
+  .logo img {
+    margin-top: 2%;
+    width: 50%;
+    height: auto;
+  }
+}
+
+.search {
+  margin-top: 2%;
+}
+.search .search_inputs {
+  display: flex;
+  justify-content: center;
+}
+.search .search_inputs .box {
+  border-radius: 25px;
+  border: 1px solid rgba(0, 0, 255, 0.25);
+  font-size: large;
+}
+@media (min-width: 900px) {
+  .search .search_inputs .box {
+    width: 600px;
+    height: 1cm;
+  }
+}
+@media screen and (max-width: 899px) {
+  .search .search_inputs .box {
+    width: 450px;
+    height: 1cm;
+  }
+}
+@media screen and (max-width: 499px) {
+  .search .search_inputs .box {
+    width: 300px;
+    height: 1cm;
+  }
+}
+.search .search_inputs .box:hover {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.search .search_buttons {
+  display: flex;
+  justify-content: center;
+}
+.search .search_buttons input[type=submit] {
+  width: auto;
+  padding: 5px;
+  height: 1cm;
+  background-color: #f8f9fa;
+  border: 0px;
+  margin-right: 5%;
+  font-size: 15px;
+  color: black;
+  border-radius: 5px;
+}
+.search .search_buttons input[type=submit]:hover {
+  border: 1px solid rgba(0, 0, 255, 0.25);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.header_label {
+  margin-left: 50px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  font-size: large;
+}
+
+.justline {
+  border: 1px solid rgb(236, 236, 236);
+}
+
+.container {
+  margin-top: 30px;
+  margin-left: 30px;
+}
+.container .form_table {
+  border-spacing: 23px;
+  font-size: 14px;
+}
+.container .form_table .form_text {
+  margin-left: 1cm;
+  width: 600px;
+  height: 25px;
+  text-align: left;
+}
+.container #ad_btn {
+  background-color: #4d90fe;
+  border: 0px;
+  color: white;
+  padding: 8px;
+  float: right;
+}/*# sourceMappingURL=stylesheet.css.map */

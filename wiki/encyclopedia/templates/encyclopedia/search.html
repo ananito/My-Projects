@@ -1,0 +1,60 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {% if title %}
+        {{title}}
+    {% else %}
+        Search
+    {% endif %}
+{% endblock %}
+
+
+{% block body %}
+    {% if not results %}
+    <h1>Search</h1>
+    <hr class="my-12 "/>
+    <form action="{% url 'search' %}" method="get">
+        <div class="row">
+            <div class="col-7">
+                <div class="form-group">
+                    <input type="test" class="form-control" name="q" placeholder="Search" value="{{title}}">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="Search">
+                </div>
+            </div>
+        </div>
+
+    </form>
+        {% if message %}
+        <h1>Invalid Search!</h1>
+        {% endif%}
+    {% else %}
+    <h1>Search Results</h1>
+    <hr class="my-12 "/>
+    <form action="{% url 'search' %}" method="get">
+        <div class="row">
+            <div class="col-7">
+                <div class="form-group">
+                    <input type="test" class="form-control" name="q" placeholder="Search" value="{{title}}">
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="Search">
+                </div>
+            </div>
+        </div>
+    </form>
+    
+    <ul>
+        {% for result in results%}
+            <li><a href="{% url 'entry' %}{{result}}">{{result}}</a></li>
+        {% empty %}
+            No results
+        {% endfor %}
+    </ul>
+    {% endif %}
+{% endblock %}

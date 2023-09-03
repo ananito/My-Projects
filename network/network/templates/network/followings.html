@@ -1,0 +1,12 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+<h1>Followings</h1>
+    
+    <!-- Posts Lists -->
+    {% include 'network/posts.html' with posts=posts %}
+
+    <!-- Pagination -->
+    {% include 'network/pagination.html' with posts=posts %}
+
+{% endblock %}
