@@ -1,2 +1,2 @@
-# CS50-WEB
-My CS50 Web Projects
+# My Projects
+Some of My Projects
